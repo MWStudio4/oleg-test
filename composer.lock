@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0b4e5c4a079a99be174594c9ba5eceb0",
+    "content-hash": "780e480d03fa1cc9c0e124fa66f59555",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -7422,6 +7422,63 @@
                 }
             ],
             "time": "2020-07-12T23:59:07+00:00"
+        },
+        {
+            "name": "yoelpc4/laravel-sail-preset",
+            "version": "v0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yoelpc4/laravel-sail-preset.git",
+                "reference": "6e7119d23ecd923268b5866985ae13d63c501149"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yoelpc4/laravel-sail-preset/zipball/6e7119d23ecd923268b5866985ae13d63c501149",
+                "reference": "6e7119d23ecd923268b5866985ae13d63c501149",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "8.*",
+                "illuminate/support": "8.*",
+                "php": ">=7.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Yoelpc4\\LaravelSailPreset\\SailPresetServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Yoelpc4\\LaravelSailPreset\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Yoel Peter Chandra",
+                    "email": "yoelpc4@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel Sail runtimes & docker-compose.yml preset.",
+            "homepage": "https://github.com/yoelpc4/laravel-sail-preset",
+            "keywords": [
+                "docker",
+                "laravel",
+                "preset",
+                "sail"
+            ],
+            "support": {
+                "issues": "https://github.com/yoelpc4/laravel-sail-preset/issues",
+                "source": "https://github.com/yoelpc4/laravel-sail-preset/tree/v0.1.0"
+            },
+            "time": "2020-12-12T18:56:53+00:00"
         }
     ],
     "aliases": [],
