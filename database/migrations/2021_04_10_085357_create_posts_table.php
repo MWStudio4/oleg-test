@@ -15,11 +15,14 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-//            $table->foreignId('user_id');
+            $table->foreignId('user_id')->nullable();
             $table->boolean('published')->default(true);
+            $table->string('image')->nullable();
             $table->string('title');
             $table->mediumText('body');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 
