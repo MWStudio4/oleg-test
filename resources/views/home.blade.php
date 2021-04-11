@@ -62,7 +62,7 @@
         <div class="flex justify-between">
             <div class="flex-initial">
                 @foreach($posts as $post)
-                    <x-post-card :post="$post"/>
+                    <x-post-card :post="$post" is-auth-user-post="{{ $user === null ? true : $post->user->id === $user->id }}" />
                 @endforeach
             </div>
             <div class="flex-initial flex flex-col" x-data="{}">

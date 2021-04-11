@@ -8,14 +8,16 @@ use Illuminate\View\Component;
 class PostCard extends Component
 {
     public $post;
+    public $isAuthUserPost;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(Post $post)
+    public function __construct(Post $post, bool $isAuthUserPost)
     {
         $this->post = $post;
+        $this->isAuthUserPost = $isAuthUserPost;
     }
 
     /**

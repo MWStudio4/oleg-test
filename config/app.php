@@ -15,6 +15,8 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'cache_time' => env("CACHE_TIME", 60),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

@@ -35,10 +35,18 @@ class PostController extends Controller
         if ($request->sort !== null && ($request->sort === 'asc' || $request->sort === 'desc')) {
             $query = $query->orderBy('created_at', $request->sort);
         }
-        $posts = $query->get();
+
+        $cacheKey = 'posts-'.($request->sort ?? '').(implode('_',$mutedIds));
+        $posts = cache()->remember(
+            $cacheKey,
+            config('app.cache_time'),
+            function () use ($query) {
+                return $query->get();
+            }
+        );
 
         return $request->is('api/*')
             ? PostResource::collection($posts)
-            : view('home', compact('posts', 'mutedUsers', 'mutedIds'));
+            : view('home', compact('posts', 'mutedUsers', 'mutedIds', 'user'));
     }
 }
