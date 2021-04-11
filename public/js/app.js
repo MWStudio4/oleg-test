@@ -3827,31 +3827,25 @@ __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
 
 
 
-window.confirm = function (userId) {
-  sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
-    icon: 'warning',
-    text: 'Do you want to mute user?',
-    showCancelButton: true,
-    confirmButtonText: 'Mute',
-    confirmButtonColor: '#e3342f'
-  }).then(function (result) {
-    if (result.isConfirmed) {
-      document.getElementById("".concat(userId));
-    }
-  });
-};
-
-window.mute = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(userId) {
+window.confirmMute = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(userId, userName) {
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            console.info("Mute ".concat(userId));
-            confirm(1); // var todo = this.todos.find((todo) => todo.id === id);
-            // todo.completed = !todo.completed;
+            _context.next = 2;
+            return sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
+              icon: 'warning',
+              text: "Do you want to mute ".concat(userName, "?"),
+              showCancelButton: true,
+              confirmButtonText: 'Mute',
+              confirmButtonColor: '#e3342f'
+            });
 
           case 2:
+            return _context.abrupt("return", _context.sent);
+
+          case 3:
           case "end":
             return _context.stop();
         }
@@ -3859,10 +3853,116 @@ window.mute = /*#__PURE__*/function () {
     }, _callee);
   }));
 
-  return function (_x) {
+  return function (_x, _x2) {
     return _ref.apply(this, arguments);
   };
 }();
+
+window.mute = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(userId, userName) {
+    var result;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return confirmMute(userId, userName);
+
+          case 2:
+            result = _context2.sent;
+            console.info("Result ", result);
+
+            if (!result.isConfirmed) {
+              _context2.next = 18;
+              break;
+            }
+
+            _context2.prev = 5;
+            _context2.next = 8;
+            return axios.post("users/mute", {
+              userId: userId
+            });
+
+          case 8:
+            _context2.next = 10;
+            return sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire('User muted', '', 'success');
+
+          case 10:
+            mutatedIds.push(userId);
+            document.location.reload();
+            _context2.next = 18;
+            break;
+
+          case 14:
+            _context2.prev = 14;
+            _context2.t0 = _context2["catch"](5);
+            console.error(_context2.t0);
+            sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire('Error', _context2.t0.message, 'error');
+
+          case 18:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, null, [[5, 14]]);
+  }));
+
+  return function (_x3, _x4) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+window.unmute = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+  var userIds;
+  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+    while (1) {
+      switch (_context3.prev = _context3.next) {
+        case 0:
+          // var e = document.getElementById("unmuteIds");
+          userIds = Array.from(document.getElementById("unmuteIds").querySelectorAll("option:checked"), function (e) {
+            return Number.parseInt(e.value);
+          });
+
+          if (userIds.length) {
+            _context3.next = 3;
+            break;
+          }
+
+          return _context3.abrupt("return");
+
+        case 3:
+          console.info("Unmute", userIds);
+          _context3.prev = 4;
+          _context3.next = 7;
+          return axios.post("users/unmute", {
+            userIds: userIds
+          });
+
+        case 7:
+          _context3.next = 9;
+          return sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire('Users unmuted', '', 'success');
+
+        case 9:
+          document.location.reload();
+          _context3.next = 16;
+          break;
+
+        case 12:
+          _context3.prev = 12;
+          _context3.t0 = _context3["catch"](4);
+          console.error(_context3.t0);
+          sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire('Error', _context3.t0.message, 'error');
+
+        case 16:
+        case "end":
+          return _context3.stop();
+      }
+    }
+  }, _callee3, null, [[4, 12]]);
+}));
+var jsonSettings = document.querySelector('[data-settings-selector="mutated"]');
+window.mutatedIds = jsonSettings ? JSON.parse(jsonSettings.textContent) : [];
+console.info("Mutated ", window.mutatedIds);
 
 /***/ }),
 
